@@ -8,7 +8,7 @@ clear all
 
 % CRU
 
-ncname_CRU='CRUTEM.4.2.0.0.anomalies.nc';
+ncname_CRU='./../data/CRUTEM.4.2.0.0.anomalies.nc';
 %Display the metadata for the file (go though to familiarize with the format)
 ncdisp(ncname_CRU);
 
@@ -27,7 +27,7 @@ TEMP_anomaly_CRU = ncread(ncname_CRU,'temperature_anomaly');
 
 % GISS
 
-ncname_GISS='gistemp1200_ERSSTv4.nc';
+ncname_GISS='./../data/gistemp1200_ERSSTv4.nc';
 %Display the metadata for the file (go though to familiarize with the format)
 ncdisp(ncname_GISS);
 
@@ -530,8 +530,8 @@ time_CRU = [1850:1/12:2014+2/12]; % create simple time array for plot
 % % GISS
 
 W = cos(pi/180*dlat_GISS)'; %weights (each cell 0-1)
-WSUM = sum(W) % sum of weights
-W = W/WSUM % weights to equal 1
+WSUM = sum(W); % sum of weights
+W = W/WSUM; % weights to equal 1
 sum(W) % Check that they equal 1
 
 no_timesteps_GISS = numel(TEMP_anomaly_GISS(1,1,:))
