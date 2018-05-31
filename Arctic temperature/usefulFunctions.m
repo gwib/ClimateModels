@@ -1,21 +1,21 @@
-%% CPC data - probably don't need this one
-ncname_CPC='./data/cpc_global_temp.1979_2005_remap.nc';
+%% NCEP reanalysis Temperature obs 1
+ncname_NCEP='./data/NCEP_reanalysis_air.2m.gauss.1976_2005_remap_mon.nc';
 %Display the metadata for the file (go though to familiarize with the format)
-ncdisp(ncname_CPC);
+ncdisp(ncname_NCEP);
 
 %Get file information (and show dimension names and variable names)
-finfo=ncinfo(ncname_CPC);
+finfo=ncinfo(ncname_NCEP);
 dimNames = {finfo.Dimensions.Name};
 varNames = {finfo.Variables.Name};
 disp(dimNames);
 disp(varNames);
 
 %Load the variables
-dlon_CRU = ncread(ncname_CPC,'lon');
-dlat_CRU = ncread(ncname_CPC,'lat');
-dtime_CRU = ncread(ncname_CPC,'time');
-%TEMP_anomaly_CRU = ncread(ncname_CPC,'temperature_anomaly');
-
+dlon_NCEP = ncread(ncname_NCEP,'lon');
+dlat_NCEP = ncread(ncname_NCEP,'lat');
+dtime_NCEP = ncread(ncname_NCEP,'time');
+TEMP_obs_NCEP = ncread(ncname_NCEP,'air');
+% in Kelvin, daily avg
 
 %% HadCrut data - probably, we don't need this one
 ncname_hadCRUT='./data/HadCRUT.4.6.0.0.median_remap.nc';
@@ -35,26 +35,26 @@ dlat_hadCRUT = ncread(ncname_hadCRUT,'lat');
 dtime_hadCRUT = ncread(ncname_hadCRUT,'time');
 TEMP_anomaly_hadCRUT = ncread(ncname_hadCRUT,'temperature_anomaly');
 
-%% EC-Earth data
-ncname_tasAmon='./data/tas_Amon_EC-EARTH_decadal2000_r3i3p1_198001-201012.nc';
+%% Global model data
+ncname_tas_Aamon='./data/tas_Amon_EC-EARTH_decadal2000_r3i3p1_198001-201012.nc';
 %Display the metadata for the file (go though to familiarize with the format)
-ncdisp(ncname_tasAmon);
+ncdisp(ncname_tas_Aamon);
 
 %Get file information (and show dimension names and variable names)
-finfo=ncinfo(ncname_tasAmon);
+finfo=ncinfo(ncname_tas_Aamon);
 dimNames = {finfo.Dimensions.Name};
 varNames = {finfo.Variables.Name};
 disp(dimNames);
 disp(varNames);
 
 %Load the variables
-dlon_tasAmon = ncread(ncname_tasAmon,'lon');
-dlat_tasAmon = ncread(ncname_tasAmon,'lat');
-dtime_tasAmon = ncread(ncname_tasAmon,'time');
-tas_tasAmon = ncread(ncname_tasAmon,'tas');
+dlon_tas_Aamon = ncread(ncname_tas_Aamon,'lon');
+dlat_tas_Aamon = ncread(ncname_tas_Aamon,'lat');
+dtime_tas_Aamon = ncread(ncname_tas_Aamon,'time');
+TEMP_tas_Aamon = ncread(ncname_tas_Aamon,'tas');
+% Kelvin, monthly avg
 
-
-%% tas ARC data
+%% RCM data
 ncname_tasArcHistorical='./data/tas_ARC-44_ICHEC-EC-EARTH_historical_r3i1p1_DMI-HIRHAM5_v1_mon_19760101-20051231_remap.nc';
 %Display the metadata for the file (go though to familiarize with the format)
 ncdisp(ncname_tasArcHistorical);
@@ -68,10 +68,11 @@ disp(varNames);
 
 %Load the variables
 dlon_tasArcHistorical = ncread(ncname_tasArcHistorical,'lon');
-dlat_tasArcHistorical = ncread(ncname_tasrcHistorical,'lat');
+dlat_tasArcHistorical = ncread(ncname_tasArcHistorical,'lat');
 dtime_tasArcHistorical = ncread(ncname_tasArcHistorical,'time');
 tas_tasArcHistorical = ncread(ncname_tasArcHistorical,'tas');
 
+% Kelvin, monthly(?)
 
 %% stuff copied from other exercises
 
