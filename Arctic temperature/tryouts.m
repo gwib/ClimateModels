@@ -17,6 +17,8 @@ dtime_CRU = ncread(ncname_CPC,'time');
 %TEMP_anomaly_CRU = ncread(ncname_CPC,'temperature_anomaly');
 
 
+
+
 %% HadCrut data
 ncname_hadCRUT='./data/HadCRUT.4.6.0.0.median_remap.nc';
 %Display the metadata for the file (go though to familiarize with the format)

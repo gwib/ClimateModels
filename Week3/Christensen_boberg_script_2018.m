@@ -40,7 +40,8 @@ hold on
 axesm miller
 worldmap world
 geoshow(dlatx,dlonx,CCSM4_historical_temp2,'displaytype','texturemap');
-load coast
+load coastlines
+geoshow(coastlat, coastlon)
 colorbar
 caxis([-30 30])
 title('Total period Mean Temperature CCSM4_historical')
