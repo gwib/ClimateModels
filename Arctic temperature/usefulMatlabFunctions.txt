@@ -1,0 +1,4 @@
+https://se.mathworks.com/help/nnet/ref/mae.html?searchHighlight=mean%20absolute%20error&s_tid=doc_srchtitle
+https://se.mathworks.com/help/nnet/ref/mse.html
+https://se.mathworks.com/help/matlab/ref/function.html - some of the examples
+https://se.mathworks.com/help/stats/

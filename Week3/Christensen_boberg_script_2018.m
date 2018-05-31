@@ -537,11 +537,3 @@ plot(CCSM4_temp_bias_slope,CCSM4_temp_change,'*k')
 xlabel('bias slope (model_slope/T_bias/T_obs) for the 50% warmest months')
 ylabel('Projected temperature change for the 50% warmest months')
 title('Fig2, Christensen and Boberg (2012), RCP4.5 2071-2100')
-
-
-
-
-
-
-
-

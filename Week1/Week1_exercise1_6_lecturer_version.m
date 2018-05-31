@@ -509,11 +509,11 @@ clearvars *lon_mean*
 % Code to geometrically weigh the latitudinal direction.
 
 W = cos(pi/180*dlat_CRU)'; %weights (each cell 0-1)
-WSUM = sum(W) % sum of weights
-W = W/WSUM % weights to equal 1
+WSUM = sum(W); % sum of weights
+W = W/WSUM; % weights to equal 1
 sum(W) % Check that they equal 1
 
-no_timesteps_CRU = numel(TEMP_anomaly_CRU(1,1,:))
+no_timesteps_CRU = numel(TEMP_anomaly_CRU(1,1,:));
 
 for i = 1:no_timesteps_CRU
 lon_mean_CRU(:,:,i) = nanmean(TEMP_anomaly_CRU(:,:,i)); % lon mean
@@ -534,7 +534,7 @@ WSUM = sum(W); % sum of weights
 W = W/WSUM; % weights to equal 1
 sum(W) % Check that they equal 1
 
-no_timesteps_GISS = numel(TEMP_anomaly_GISS(1,1,:))
+no_timesteps_GISS = numel(TEMP_anomaly_GISS(1,1,:));
 
 for i = 1:no_timesteps_GISS
 lon_mean_GISS(:,:,i) = nanmean(TEMP_anomaly_GISS(:,:,i)); % lon mean
