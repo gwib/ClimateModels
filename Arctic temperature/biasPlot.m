@@ -6,7 +6,7 @@ function biasPlot(v1,v2,v3, biasName, latLim, lonLim, dlatx, dlonx)
     
     figure
 
-    subplot(1,3,1)
+    subplot(2,2,1.5)
     hold on
     axesm miller
     worldmap(latLim, lonLim)
@@ -21,7 +21,7 @@ function biasPlot(v1,v2,v3, biasName, latLim, lonLim, dlatx, dlonx)
     colorbar
     title('Observations and Reanalysis')
 
-    subplot(1,3,2)
+    subplot(2,2,3)
     hold on
     axesm miller
     worldmap(latLim, lonLim)
@@ -34,9 +34,9 @@ function biasPlot(v1,v2,v3, biasName, latLim, lonLim, dlatx, dlonx)
     colormap(LB)
     caxis(clim)
     colorbar
-    title('Observations and GCM')
+    title('Reanalysis and GCM')
 
-    subplot(1,3,3)
+    subplot(2,2,4)
     hold on
     axesm miller
     worldmap(latLim, lonLim)
@@ -49,7 +49,7 @@ function biasPlot(v1,v2,v3, biasName, latLim, lonLim, dlatx, dlonx)
     colormap(LB)
     caxis(clim)
     colorbar
-    title('Observations and RCM')
+    title('Reanalyis and RCM')
 
-    print('-dtiff','-r300',strcat('bias_',biasName));
+    print('-dtiff','-r300',strcat('./plots/bias_',biasName));
 end

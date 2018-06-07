@@ -9,7 +9,7 @@ dimNames = {finfo.Dimensions.Name};
 varNames1 = {finfo.Variables.Name};
 disp(dimNames);
 disp(varNames1);
-abs = ncread(ncname1,'tem');
+absTemp = ncread(ncname1,'tem');
 lat = ncread(ncname1,'lat');
 lon = ncread(ncname1,'lon');
 dtime_hadCrut = ncread(ncname2, 'time');
@@ -30,8 +30,8 @@ disp(dimNames);
 disp(varNames);
 anom = ncread(ncname2,'temperature_anomaly');
 % m = repmat([1:12],1,168); m = cat(2,m,[1 2 3]);
-abs2 = repmat(abs,1,1,168); %168 full years
-abs2 = cat(3,abs2,abs(:,:,1),abs(:,:,2),abs(:,:,3));
+abs2 = repmat(absTemp,1,1,168); %168 full years
+abs2 = cat(3,abs2,absTemp(:,:,1),absTemp(:,:,2),absTemp(:,:,3));
 for i = 1:2019
     hadCrutAbs(:,:,i) = anom(:,:,i)+abs2(:,:,i);
 end

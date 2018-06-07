@@ -19,7 +19,7 @@ subplot(2,2,2)
 hold on
 axesm miller
 worldmap(latLim, lonLim)
-geoshow(dlatx,dlonx,NCEP_obs_temp,'displaytype','texturemap');
+geoshow(dlatx,dlonx,NCEP_mean,'displaytype','texturemap');
 load coastlines
 geoshow(coastlat, coastlon)
 colorbar
@@ -51,6 +51,6 @@ colorbar
 caxis([-50 30])
 title('Total period Mean Temperature Arc Historical (RCM)')
 
-print('-dtiff','-r300','TotalMeanTemp');
+print('-dtiff','-r300','./plots/TotalMeanTemp');
 
 
