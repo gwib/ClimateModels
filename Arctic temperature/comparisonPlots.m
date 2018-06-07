@@ -1,3 +1,4 @@
+% Plot total Temperature Mean
 figure
 
 subplot(2,2,1)
@@ -51,4 +52,5 @@ caxis([-50 30])
 title('Total period Mean Temperature Arc Historical (RCM)')
 
 print('-dtiff','-r300','TotalMeanTemp');
+
 

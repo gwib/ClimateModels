@@ -34,7 +34,7 @@ dlatx = dlatx_NCEP;
 dlonx = dlonx_NCEP;
 
 % total period mean
-NCEP_obs_temp = nanmean(TEMP_obs_NCEP,3); 
+NCEP_mean = nanmean(TEMP_obs_NCEP,3); 
 
 %% Global model data
 ncname_tas_Aamon='./data/tas_Amon_EC-EARTH_decadal2000_r3i3p1_198001-201012.nc';

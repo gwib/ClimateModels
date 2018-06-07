@@ -1,7 +1,43 @@
 %%
 run('loadData')
 run('conversion')
-%% stuff copied from other exercises
+%% observation compared to reanalysis and models
+
+% bias of total mean
+
+% obs and Reanalysis
+obsReanalysis_mean_bias = NCEP_mean - hadCrutAbs_mean;
+% obs and GCM
+obsGCM_mean_bias = TEMP_tas_Aamon_mean - hadCrutAbs_mean;
+% obs and RCM
+obsRCM_mean_bias = tas_tasArcHistorical_mean - hadCrutAbs_mean;
+
+biasPlot(obsReanalysis_mean_bias,obsGCM_mean_bias,obsRCM_mean_bias,'totalMean', latLim, lonLim, ...
+    dlatx, dlonx)
+
+% comparison of RCM and GCM
+GCM_RCM_mean_bias = TEMP_tas_Aamon_mean - tas_tasArcHistorical_mean;
+m = max(abs(min(min(GCM_RCM_mean_bias))),abs(max(max(GCM_RCM_mean_bias))));
+clim = [-m m];
+LB=flipud(lbmap(256,'BrownBlue'));
+figure
+hold on
+axesm miller
+worldmap(latLim, lonLim)
+geoimghadCrut = geoshow(dlatx,dlonx,GCM_RCM_mean_bias,'displaytype','texturemap');
+geoimghadCrut.AlphaDataMapping = 'none';
+geoimghadCrut.FaceAlpha = 'texturemap';
+alpha(geoimghadCrut,double(~isnan(GCM_RCM_mean_bias)))
+load coastlines
+geoshow(coastlat, coastlon)
+colormap(LB)
+caxis(clim)
+colorbar
+title('GCM - RCM')
+print('-dtiff','-r300','GCMminusRCM');
+% bias of mean of january temperature
+
+% bias of July temperatures
 
 %% sum of "anomalies" over region
 % EXERCISE 3-4 (W1)
