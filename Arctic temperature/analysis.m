@@ -16,8 +16,10 @@ geoimgBias.FaceAlpha = 'texturemap';
 alpha(geoimgBias,double(~isnan(std)))
 load coastlines
 geoshow(coastlat, coastlon)
+colormap(flipud(pink))
 colorbar
 caxis([-0.1 0.8])
+set(gca,'fontsize',25)
 title('Internal Bias of NCEP data')
 
 %% observation compared to reanalysis and models
@@ -36,12 +38,16 @@ ncepRCM_mean_bias = tas_tasArcHistorical_mean - NCEP_mean;
 
 biasPlot(obsReanalysis_mean_bias,ncepGCM_mean_bias,ncepRCM_mean_bias,'NCEPtotalMean', ...
     latLim, lonLim, dlatx, dlonx)
-%% bias correction by adding obsReanalysis_mean_bias to GCM and RCM mean biases with NCEP - does not make sense
-ncepGCM_mean_bias_corrected = ncepGCM_mean_bias + obsReanalysis_mean_bias;
-ncepRCM_mean_bias_corrected = ncepRCM_mean_bias + obsReanalysis_mean_bias;
 
-rmsePlot(ncepGCM_mean_bias_corrected, ncepRCM_mean_bias_corrected, latLim, lonLim, dlatx, dlonx,'CorrectedBias')
+%% another try for bias with corrected NCEP
+ncep_biasC_mean = nanmean(ncep_biasC,3);
+obsReanalysis_mean_bias_C = ncep_biasC_mean - hadCrutAbs_mean;
+ncepGCM_mean_bias_C = TEMP_tas_Aamon_mean - ncep_biasC_mean;
+ncepRCM_mean_bias_C = tas_tasArcHistorical_mean - ncep_biasC_mean;
 
+
+biasPlot(obsReanalysis_mean_bias_C,ncepGCM_mean_bias_C,ncepRCM_mean_bias_C,'NCEPtotalMean_biasCorrected', ...
+    latLim, lonLim, dlatx, dlonx)
 %% comparison of RCM and GCM
 GCM_RCM_mean_bias = TEMP_tas_Aamon_mean - tas_tasArcHistorical_mean;
 m = max(abs(min(min(GCM_RCM_mean_bias))),abs(max(max(GCM_RCM_mean_bias))));
@@ -104,7 +110,7 @@ for i = 1:10
 end
 
 % extract values for period 1 - 1980-1990
-JULY_period1 = 1;
+JULY_period1 = 7;
 for i = 1:10
     temp_obs_Jul1(:,:,i) = hadCrutAbs(:,:,JULY_period1);
     temp_RCM_Jul1(:,:,i) = tas_tasArcHistorical(:,:,JULY_period1);
@@ -114,7 +120,7 @@ for i = 1:10
 end
 
 % extract values for period 2 - 1995-2005
-JULY_period2 = ((1995-1980)*12);
+JULY_period2 = ((1995-1980)*12) + 7;
 for i = 1:10
     temp_obs_Jul2(:,:,i) = hadCrutAbs(:,:,JULY_period2);
     temp_RCM_Jul2(:,:,i) = tas_tasArcHistorical(:,:,JULY_period2);
@@ -184,3 +190,20 @@ rmsePlot(RMSE_NCEPGCM_Jan1,RMSE_NCEPRCM_Jan1, latLim, lonLim, dlatx, dlonx,'Jan1
 rmsePlot(RMSE_NCEPGCM_Jan2,RMSE_NCEPRCM_Jan2, latLim, lonLim, dlatx, dlonx,'Jan2')
 rmsePlot(RMSE_NCEPGCM_Jul1,RMSE_NCEPRCM_Jul1, latLim, lonLim, dlatx, dlonx,'Jul1')
 rmsePlot(RMSE_NCEPGCM_Jul2,RMSE_NCEPRCM_Jul2, latLim, lonLim, dlatx, dlonx,'Jul2')
+
+%%
+bias_NCEPGCM_Jan1 = nanmean(temp_GCM_Jan1 - temp_NCEP_Jan1,3);
+bias_NCEPGCM_Jan2 = nanmean(temp_GCM_Jan2 - temp_NCEP_Jan2,3);
+bias_NCEPGCM_Jul1 = nanmean(temp_GCM_Jul1 - temp_NCEP_Jul1,3);
+bias_NCEPGCM_Jul2 = nanmean(temp_GCM_Jul2 - temp_NCEP_Jul2,3);
+
+bias_NCEPRCM_Jan1 = nanmean(temp_RCM_Jan1 - temp_NCEP_Jan1,3);
+bias_NCEPRCM_Jan2 = nanmean(temp_RCM_Jan2 - temp_NCEP_Jan2,3);
+bias_NCEPRCM_Jul1 = nanmean(temp_RCM_Jul1 - temp_NCEP_Jul1,3);
+bias_NCEPRCM_Jul2 = nanmean(temp_RCM_Jul1 - temp_NCEP_Jul1,3);
+
+biasPlot2(bias_NCEPGCM_Jan1,bias_NCEPRCM_Jan1, 'Jan1', latLim, lonLim, dlatx, dlonx)
+biasPlot2(bias_NCEPGCM_Jan2,bias_NCEPRCM_Jan2, 'Jan2', latLim, lonLim, dlatx, dlonx)
+biasPlot2(bias_NCEPGCM_Jul1,bias_NCEPRCM_Jul1, 'Jul1', latLim, lonLim, dlatx, dlonx)
+biasPlot2(bias_NCEPGCM_Jul2,bias_NCEPRCM_Jul2, 'Jul2', latLim, lonLim, dlatx, dlonx)
+

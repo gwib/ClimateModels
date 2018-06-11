@@ -1,6 +1,8 @@
-function rmsePlot(v1,v2, latLim, lonLim, dlatx, dlonx,rmseName)
+function biasPlot2(v1,v2, biasName, latLim, lonLim, dlatx, dlonx)
    
-    clim = [0 20];
+    LB=flipud(lbmap(256,'BrownBlue'));
+    m = max(abs(min(min(v1))),abs(max(max(v1))));
+    clim = [-m m];
     
     figure
 
@@ -14,10 +16,10 @@ function rmsePlot(v1,v2, latLim, lonLim, dlatx, dlonx,rmseName)
     alpha(geoimghadCrut,double(~isnan(v1)))
     load coastlines
     geoshow(coastlat, coastlon)
-    %colormap(LB)
+    colormap(LB)
     caxis(clim)
     colorbar
-    title(strcat('Reanalysis and GCM', rmseName))
+    title(strcat('Reanalysis and GCM in period ', biasName))
 
     subplot(1,2,2)
     hold on
@@ -29,10 +31,10 @@ function rmsePlot(v1,v2, latLim, lonLim, dlatx, dlonx,rmseName)
     alpha(geoimghadCrut,double(~isnan(v2)))
     load coastlines
     geoshow(coastlat, coastlon)
-    %colormap(LB)
+    colormap(LB)
     caxis(clim)
     colorbar
-    title(strcat('Reanalysis and RCM', rmseName))
+    title(strcat('Reanalysis and RCM in period ', biasName))
 
-    print('-dtiff','-r300',strcat('./plots/rmse_',rmseName));
+    print('-dtiff','-r300',strcat('./plots/bias_',biasName));
 end
