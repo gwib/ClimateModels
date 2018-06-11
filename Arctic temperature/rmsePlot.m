@@ -1,6 +1,6 @@
 function rmsePlot(v1,v2, latLim, lonLim, dlatx, dlonx,rmseName)
    
-    clim = [0 20];
+    clim = [-20 20];
     
     figure
 

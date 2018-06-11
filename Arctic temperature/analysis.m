@@ -3,6 +3,23 @@ run('loadData')
 run('conversion')
 run('comparisonPlots')
 % time vector days since 1-11-1979
+%% Bias correction of reanalysis
+[ncep_biasC,std] = biasCorrection(TEMP_obs_NCEP);
+std_mean_NCEP = nanmean(std,3);
+figure
+hold on
+axesm miller
+worldmap(latLim, lonLim)
+geoimgBias = geoshow(dlatx,dlonx,std,'displaytype','texturemap');
+geoimgBias.AlphaDataMapping = 'none';
+geoimgBias.FaceAlpha = 'texturemap';
+alpha(geoimgBias,double(~isnan(std)))
+load coastlines
+geoshow(coastlat, coastlon)
+colorbar
+caxis([-0.1 0.8])
+title('Internal Bias of NCEP data')
+
 %% observation compared to reanalysis and models
 
 % bias of total mean
@@ -19,8 +36,13 @@ ncepRCM_mean_bias = tas_tasArcHistorical_mean - NCEP_mean;
 
 biasPlot(obsReanalysis_mean_bias,ncepGCM_mean_bias,ncepRCM_mean_bias,'NCEPtotalMean', ...
     latLim, lonLim, dlatx, dlonx)
+%% bias correction by adding obsReanalysis_mean_bias to GCM and RCM mean biases with NCEP - does not make sense
+ncepGCM_mean_bias_corrected = ncepGCM_mean_bias + obsReanalysis_mean_bias;
+ncepRCM_mean_bias_corrected = ncepRCM_mean_bias + obsReanalysis_mean_bias;
 
-% comparison of RCM and GCM
+rmsePlot(ncepGCM_mean_bias_corrected, ncepRCM_mean_bias_corrected, latLim, lonLim, dlatx, dlonx,'CorrectedBias')
+
+%% comparison of RCM and GCM
 GCM_RCM_mean_bias = TEMP_tas_Aamon_mean - tas_tasArcHistorical_mean;
 m = max(abs(min(min(GCM_RCM_mean_bias))),abs(max(max(GCM_RCM_mean_bias))));
 clim = [-m m];
@@ -156,6 +178,7 @@ for i = 1:320
     end
 end
 rmsePlot2(RMSE_obsNCEP_Jan1, RMSE_obsNCEP_Jan2, RMSE_obsNCEP_Jul1, RMSE_obsNCEP_Jul2, latLim, lonLim, dlatx, dlonx,'obsReanalysis')
+
 %%
 rmsePlot(RMSE_NCEPGCM_Jan1,RMSE_NCEPRCM_Jan1, latLim, lonLim, dlatx, dlonx,'Jan1')
 rmsePlot(RMSE_NCEPGCM_Jan2,RMSE_NCEPRCM_Jan2, latLim, lonLim, dlatx, dlonx,'Jan2')
