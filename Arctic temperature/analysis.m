@@ -97,7 +97,7 @@ for i = 1:10
     temp_RCM_Jan1(:,:,i) = tas_tasArcHistorical(:,:,JANUARY_period1);
     temp_GCM_Jan1(:,:,i) = TEMP_tas_Aamon(:,:,JANUARY_period1);
     temp_NCEP_Jan1(:,:,i) = TEMP_obs_NCEP(:,:,JANUARY_period1);
-    JANUARY_Jan1 = JANUARY_period1+12;
+    JANUARY_period1 = JANUARY_period1+12;
 end
 
 JANUARY_period2 = ((1995-1980)*12);
@@ -106,7 +106,7 @@ for i = 1:10
     temp_RCM_Jan2(:,:,i) = tas_tasArcHistorical(:,:,JANUARY_period2);
     temp_GCM_Jan2(:,:,i) = TEMP_tas_Aamon(:,:,JANUARY_period2);
     temp_NCEP_Jan2(:,:,i) = TEMP_obs_NCEP(:,:,JANUARY_period2);
-    JANUARY_Jan2 = JANUARY_period2+12;
+    JANUARY_period2 = JANUARY_period2+12;
 end
 
 % extract values for period 1 - 1980-1990
@@ -121,10 +121,10 @@ end
 
 % extract values for period 2 - 1995-2005
 JULY_period2 = ((1995-1980)*12) + 7;
-for i = 1:10
+for i = 1:9
     temp_obs_Jul2(:,:,i) = hadCrutAbs(:,:,JULY_period2);
     temp_RCM_Jul2(:,:,i) = tas_tasArcHistorical(:,:,JULY_period2);
-    temp_GCM_Jul2(:,:,i) = TEMP_tas_Aamon(:,:,JANUARY_period2);
+    temp_GCM_Jul2(:,:,i) = TEMP_tas_Aamon(:,:,JULY_period2);
     temp_NCEP_Jul2(:,:,i) = TEMP_obs_NCEP(:,:,JULY_period2);
     JULY_period2 = JULY_period2+12;
 end
